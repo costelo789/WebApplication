@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#theModuleList {
+	position: fixed;
+}
+
+#theEnrollmentList {
+	position: fixed;
+	z-index: 1;
+    top: 0;
+    left: -100%;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+}
+
+</style>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+<script src="../Util_Scripts_GET.js">
+</script>
+<script src="Lecturer_Scripts_GET.js">
+</script>
+<script src="Animation_Scripts.js"></script>
+</head>
+ <body>
+  <div id="theModuleList">
+			   <p><b>List Module</b></p>
+			  <table id="listModule">		
+			  	<thead>
+					<th>Module ID</th>
+					<th>Module Name</th>
+				</thead>
+			  </table>
+			  <p><b>Choose Module</b></p>
+			  <input id="moduleId" type="text" name="moduleId">
+			  <input id="listEnrollmentByModuleIdButton" type="button" value="Submit">
+			</div>  
+			
+	<div id="theEnrollmentList">
+			<p><b>List Enrolled Students</b></p>
+			  <table id="listEnrollmentByModuleId">		
+			  	<thead>
+					<th>Module ID</th>
+					<th>Module Name</th>
+				</thead>
+			  </table>
+			</div>
+     
+  </body>
+</html>

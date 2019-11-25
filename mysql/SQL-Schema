@@ -1,0 +1,905 @@
+-- CREATE DATABASE
+DROP DATABASE Web_Application_Team3;
+
+CREATE DATABASE Web_Application_Team3;
+
+USE Web_Application_Team3;
+
+DROP TABLE IF EXISTS Enrollment;
+DROP TABLE IF EXISTS Teaching;
+DROP TABLE IF EXISTS Attendance;
+DROP TABLE IF EXISTS Registration;
+DROP TABLE IF EXISTS Exams;
+DROP TABLE IF EXISTS Sessions;
+DROP TABLE IF EXISTS Modules;
+DROP TABLE IF EXISTS Semester;
+DROP TABLE IF EXISTS Student;
+DROP TABLE IF EXISTS Lecturer;
+DROP TABLE IF EXISTS Assistant;
+DROP TABLE IF EXISTS Accounts;
+
+-- CREATE TABLE
+CREATE TABLE Accounts (
+                          id       	INTEGER AUTO_INCREMENT,
+                          login		VARCHAR(20) UNIQUE,
+                          pass		VARCHAR(20),
+                          firstname	VARCHAR(20),
+                          lastname	VARCHAR(20),
+                          CONSTRAINT 	Accounts_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE Assistant (
+                           assistantid		INTEGER,
+                           CONSTRAINT Assistant_pk PRIMARY KEY (assistantid),
+                           CONSTRAINT Assistant_Accounts_fk FOREIGN KEY (assistantid) REFERENCES Accounts (id) ON DELETE CASCADE
+);
+
+CREATE TABLE Student (
+                         studentid		INTEGER,
+                         CONSTRAINT Student_pk PRIMARY KEY (studentid),
+                         CONSTRAINT Student_Accounts_fk FOREIGN KEY (studentid) REFERENCES Accounts (id) ON DELETE CASCADE
+);
+
+CREATE TABLE Lecturer (
+                          lecturerid		INTEGER,
+                          CONSTRAINT Lecturer_pk PRIMARY KEY (lecturerid),
+                          CONSTRAINT Lecturer_Accounts_fk FOREIGN KEY (lecturerid) REFERENCES Accounts (id) ON DELETE CASCADE
+);
+
+CREATE TABLE Semester (
+                          semesterid		INTEGER AUTO_INCREMENT,
+                          semesterfrom	DATE,
+                          semesterto		DATE,
+                          UNIQUE (semesterfrom, semesterto),
+                          CONSTRAINT Semester_pk primary key (semesterid)
+);
+
+CREATE TABLE Modules (
+                         modulesid		INTEGER AUTO_INCREMENT,
+                         modulesname		VARCHAR(20),
+                         semesterid		INTEGER,
+                         UNIQUE (modulesname, semesterid),
+                         CONSTRAINT Modules_pk PRIMARY KEY (modulesid),
+                         CONSTRAINT Modules_semester_fk FOREIGN KEY (semesterid) REFERENCES Semester (semesterid) ON DELETE CASCADE
+);
+
+CREATE TABLE Sessions (
+                          sessionsid		INTEGER AUTO_INCREMENT,
+                          modulesid		INTEGER,
+                          sessionsdate	DATE,
+                          sessionsfrom	TIME,
+                          sessionsto		TIME,
+                          UNIQUE (modulesid, sessionsdate, sessionsfrom, sessionsto),
+                          CONSTRAINT Sessions_pk PRIMARY KEY (sessionsid),
+                          CONSTRAINT Sessions_modules_fk FOREIGN KEY (modulesid) REFERENCES Modules (modulesid) ON DELETE CASCADE
+);
+
+CREATE TABLE Exams (
+                       examsid			INTEGER AUTO_INCREMENT,
+                       modulesid		INTEGER,
+                       examsdate		DATE,
+                       examsfrom		TIME,
+                       examsto			TIME,
+                       deadline		TIMESTAMP,
+                       UNIQUE (modulesid, examsdate, examsfrom, examsto),
+                       CONSTRAINT Exams_pk PRIMARY KEY (examsid),
+                       CONSTRAINT Exams_modules_fk FOREIGN KEY (modulesid) REFERENCES Modules (modulesid) ON DELETE CASCADE
+);
+
+CREATE TABLE Teaching (
+                          lecturerid		INTEGER,
+                          modulesid		INTEGER,
+                          CONSTRAINT Teaching_pk PRIMARY KEY (lecturerid, modulesid),
+                          CONSTRAINT Teaching_lecturer_fk FOREIGN KEY (lecturerid) REFERENCES Lecturer (lecturerid) ON DELETE CASCADE,
+                          CONSTRAINT Teaching_modules_fk FOREIGN KEY (modulesid) REFERENCES Modules (modulesid) ON DELETE CASCADE
+);
+
+CREATE TABLE Enrollment (
+                            studentid		INTEGER,
+                            modulesid		INTEGER,
+                            CONSTRAINT Enrollment_pk PRIMARY KEY (studentid, modulesid),
+                            CONSTRAINT Enrollment_student_fk FOREIGN KEY (studentid) REFERENCES Student(studentid) ON DELETE CASCADE,
+                            CONSTRAINT Enrollment_modules_fk FOREIGN KEY (modulesid) REFERENCES Modules(modulesid) ON DELETE CASCADE
+);
+
+CREATE TABLE Attendance (
+                            studentid				INTEGER,
+                            sessionsid				INTEGER,
+                            attendancetimestamp		TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            CONSTRAINT Attendance_pk PRIMARY KEY (studentid, sessionsid),
+                            CONSTRAINT Attendance_student_fk FOREIGN KEY (studentid) REFERENCES Student (studentid) ON DELETE CASCADE,
+                            CONSTRAINT Attendance_sessions_fk FOREIGN KEY (sessionsid) REFERENCES Sessions (sessionsid) ON DELETE CASCADE
+);
+
+CREATE TABLE Registration (
+                              studentid				INTEGER,
+                              examsid					INTEGER,
+                              registrationtimestamp	TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                              CONSTRAINT Registration_pk PRIMARY KEY (studentid, examsid),
+                              CONSTRAINT Registration_student_fk FOREIGN KEY (studentid) REFERENCES Student (studentid) ON DELETE CASCADE,
+                              CONSTRAINT Registration_exam_fk FOREIGN KEY (examsid) REFERENCES Exams (examsid) ON DELETE CASCADE
+);
+
+
+-- INFORMATION
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('assistant1','pass1','Hong','Tran');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('assistant2','pass2','Thu','Tran');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('assistant3','pass3','Minh','Nguyen');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('assistant4','pass4','Phat','Tran');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('assistant5','pass5','Thach','Le');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('assistant6','pass6','Phat','Tran');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('assistant7','pass7','Thach','Le');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('student1','pass1','Phat','Tran');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('student2','pass2','Tri','Nguyen');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('student3','pass3','Hung','Le');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('student4','pass4','Dat','Ho');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('student5','pass5','Dat','Ho');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('student6','pass6','Vu','Do');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('student7','pass7','Vu','Do');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('lecturer1','pass1','Thong','Quach');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('lecturer2','pass2','Hung','Vu');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('lecturer3','pass3','Hung','Duong');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('lecturer4','pass4','Do','Lam');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('lecturer5','pass5','Vinh','Nguyen');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('lecturer6','pass6','Vinh','Nguyen');
+INSERT INTO Accounts(login,pass,firstname,lastname) VALUES ('lecturer7','pass7','Vinh','Nguyen');
+
+INSERT INTO Assistant VALUES (1);
+INSERT INTO Assistant VALUES (2);
+INSERT INTO Assistant VALUES (3);
+INSERT INTO Assistant VALUES (4);
+INSERT INTO Assistant VALUES (5);
+INSERT INTO Assistant VALUES (6);
+INSERT INTO Assistant VALUES (7);
+
+INSERT INTO Student VALUES (8);
+INSERT INTO Student VALUES (9);
+INSERT INTO Student VALUES (10);
+INSERT INTO Student VALUES (11);
+INSERT INTO Student VALUES (12);
+INSERT INTO Student VALUES (13);
+INSERT INTO Student VALUES (14);
+
+INSERT INTO Lecturer VALUES (15);
+INSERT INTO Lecturer VALUES (16);
+INSERT INTO Lecturer VALUES (17);
+INSERT INTO Lecturer VALUES (18);
+INSERT INTO Lecturer VALUES (19);
+INSERT INTO Lecturer VALUES (20);
+INSERT INTO Lecturer VALUES (21);
+
+INSERT INTO Semester(semesterfrom,semesterto) VALUES ('2016-09-01', '2017-02-01');
+INSERT INTO Semester(semesterfrom,semesterto) VALUES ('2017-03-01', '2017-07-01');
+INSERT INTO Semester(semesterfrom,semesterto) VALUES ('2017-09-01', '2018-02-01');
+INSERT INTO Semester(semesterfrom,semesterto) VALUES ('2018-03-01', '2018-07-01');
+
+INSERT INTO Modules(modulesname, semesterid) VALUES  ('Math', 1);
+INSERT INTO Modules(modulesname, semesterid) VALUES  ('Calculus', 2);
+INSERT INTO Modules(modulesname, semesterid) VALUES  ('Algebra', 3);
+INSERT INTO Modules(modulesname, semesterid) VALUES  ('Java', 4);
+INSERT INTO Modules(modulesname, semesterid) VALUES  ('C++', 2);
+
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (1,'2016-10-1','09:00:00','10:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (2,'2017-4-1','09:00:00','10:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (3,'2017-10-1','09:00:00','10:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (1, '2016-12-01', '08:45:00', '12:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (1, '2016-12-20', '08:45:00', '10:15:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (1, '2017-01-01', '08:45:00', '12:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (2, '2016-12-15', '13:45:00', '15:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (2, '2017-02-01', '13:45:00', '15:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (2, '2018-06-12', '14:45:00', '16:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (3, '2016-12-01', '08:45:00', '12:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (3, '2017-01-15', '08:45:00', '12:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (3, '2018-01-01', '08:45:00', '12:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (3, '2018-06-01', '08:45:00', '12:00:00');
+INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (3, '2016-10-01', '08:45:00', '12:00:00');
+
+INSERT INTO Exams(modulesid,examsdate,examsfrom,examsto,deadline) VALUES (1, '2018-01-20', '09:00:00', '11:00:00', '2018-01-10 00:00:00');
+INSERT INTO Exams(modulesid,examsdate,examsfrom,examsto,deadline) VALUES (2, '2018-07-20', '09:00:00', '11:00:00', '2018-07-15 00:00:00');
+INSERT INTO Exams(modulesid,examsdate,examsfrom,examsto,deadline) VALUES (3, '2019-08-20', '09:00:00', '11:00:00', '2019-08-10 00:00:00');
+INSERT INTO Exams(modulesid,examsdate,examsfrom,examsto,deadline) VALUES (3, '2019-09-20', '09:00:00', '11:00:00', '2018-08-15 00:00:00');
+INSERT INTO Exams(modulesid,examsdate,examsfrom,examsto,deadline) VALUES (4, '2020-01-20', '09:00:00', '11:00:00', '2018-12-31 00:00:00');
+
+INSERT INTO Teaching (lecturerid, modulesid) VALUES (15,1);
+INSERT INTO Teaching (lecturerid, modulesid) VALUES (15,2);
+INSERT INTO Teaching (lecturerid, modulesid) VALUES (16,1);
+INSERT INTO Teaching (lecturerid, modulesid) VALUES (17,1);
+INSERT INTO Teaching (lecturerid, modulesid) VALUES (17,2);
+INSERT INTO Teaching (lecturerid, modulesid) VALUES (18,2);
+INSERT INTO Teaching (lecturerid, modulesid) VALUES (19,1);
+INSERT INTO Teaching (lecturerid, modulesid) VALUES (19,2);
+INSERT INTO Teaching (lecturerid, modulesid) VALUES (20,1);
+
+INSERT INTO Enrollment VALUES (8, 1);
+INSERT INTO Enrollment VALUES (9, 1);
+INSERT INTO Enrollment VALUES (10, 1);
+INSERT INTO Enrollment VALUES (11, 1);
+INSERT INTO Enrollment VALUES (12, 1);
+INSERT INTO Enrollment VALUES (13, 2);
+INSERT INTO Enrollment VALUES (14, 2);
+INSERT INTO Enrollment VALUES (8, 2);
+INSERT INTO Enrollment VALUES (8, 3);
+INSERT INTO Enrollment VALUES (9, 2);
+INSERT INTO Enrollment VALUES (10, 3);
+INSERT INTO Enrollment VALUES (10, 2);
+INSERT INTO Enrollment VALUES (11, 2);
+
+INSERT INTO Attendance (studentid, sessionsid) VALUES (8, 1);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (8, 4);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (8, 9);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (8, 10);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (9, 3);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (8, 3);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (10, 1);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (10, 8);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (14, 6);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (13, 6);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (11, 1);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (12, 1);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (10, 7);
+INSERT INTO Attendance (studentid, sessionsid) VALUES (10, 2);
+
+INSERT INTO Registration (studentid, examsid) VALUES (8, 1);
+INSERT INTO Registration (studentid, examsid) VALUES (8, 2);
+INSERT INTO Registration (studentid, examsid) VALUES (8, 3);
+INSERT INTO Registration (studentid, examsid) VALUES (9, 3);
+INSERT INTO Registration (studentid, examsid) VALUES (9, 2);
+INSERT INTO Registration (studentid, examsid) VALUES (9, 1);
+INSERT INTO Registration (studentid, examsid) VALUES (13, 2);
+
+####################ASSISTANT##############################
+
+# 17 Procedures
+
+####################LIST AND VIEW #########################
+
+DELIMITER //
+# List account by a given ID
+CREATE PROCEDURE listAccountById(IN accountId INTEGER)
+BEGIN
+    SELECT A.id, A.firstname, A.lastname, A.login, A.pass
+    FROM  Accounts A
+    WHERE A.id = accountId;
+END//
+DELIMITER ;
+
+# List all the Assistant
+DELIMITER //
+CREATE PROCEDURE listAssistant()
+BEGIN
+    SELECT AA.id, AA.firstname, AA.lastname, A.assistantid
+    FROM Assistant A JOIN Accounts AA ON (A.assistantid=AA.id);
+END //
+DELIMITER ;
+
+# List all the Sessions belong to a given module
+DELIMITER //
+CREATE PROCEDURE listSessionByModule(IN moduleName VARCHAR(20))
+BEGIN
+    SELECT *
+    FROM Sessions S JOIN Modules M ON (M.modulesid = S.modulesid)
+    WHERE M.modulesname = moduleName;
+END //
+DELIMITER ;
+
+#########################CREATE############################
+
+# Create Exam
+DELIMITER //
+CREATE PROCEDURE createExam (   IN moduleId	 INTEGER,
+                                IN examDate DATE,
+                                IN examFrom TIME,
+                                IN examTo   TIME,
+                                IN deadLine TIMESTAMP)
+BEGIN
+    INSERT INTO Exams VALUES (last_insert_id(), moduleId, examDate, examFrom, examTo, deadLine);
+END//
+
+DELIMITER ;
+
+# Create Sessions
+DELIMITER //
+CREATE PROCEDURE createSessions( IN moduleId	INTEGER, IN sessionsDate DATE, IN sessionsFrom TIME,
+                                 IN sessionsTo TIME)
+BEGIN
+    INSERT INTO Sessions(modulesid, sessionsdate, sessionsfrom, sessionsto) VALUES (moduleId, sessionsDate, sessionsFrom, sessionsTo);
+END//
+DELIMITER ;
+
+# Create Semester
+DELIMITER //
+CREATE PROCEDURE createSemester(
+    IN semesterFrom	DATE,
+    IN semesterTo	DATE)
+BEGIN
+    INSERT INTO Semester(semesterfrom,semesterto) VALUES(semesterFrom, semesterTo);
+END//
+DELIMITER ;
+
+# assignLecturer
+DELIMITER //
+CREATE PROCEDURE assignLecturer ( IN lecturerId INTEGER,
+                                  IN moduleId INTEGER)
+BEGIN
+    INSERT INTO Teaching VALUES( lecturerId, moduleId);
+END//
+DELIMITER ;
+
+###################MODIFY###########################
+
+# Modify an account
+DELIMITER //
+CREATE PROCEDURE modifyAccount(
+    IN	aid       	INTEGER,
+    IN	alogin		VARCHAR(20),
+    IN	apass		VARCHAR(20),
+    IN	afirstname	VARCHAR(20),
+    IN	alastname	VARCHAR(20)
+)
+BEGIN
+    UPDATE Accounts
+    SET
+        login = alogin,
+        pass = apass,
+        firstname = afirstname,
+        lastname = alastname
+    WHERE id = aid;
+END //
+DELIMITER ;
+
+# Modify a semester
+DELIMITER //
+CREATE PROCEDURE modifySemester(
+    IN	ssemesterid	INTEGER,
+    IN	ssemesterfrom	DATE,
+    IN	ssemesterto	DATE
+)
+BEGIN
+    UPDATE Semester
+    SET
+        semesterfrom = ssemesterfrom,
+        semesterto = ssemesterto
+    WHERE semesterid = ssemesterid;
+END //
+DELIMITER ;
+
+
+
+
+# Modify an exam
+DELIMITER //
+CREATE PROCEDURE modifyExam(
+    IN	eexamsid	INTEGER,
+    IN	eexamsdate	DATE,
+    IN	eexamsfrom	TIME,
+    IN	eexamsto	TIME,
+    IN	edeadline	TIMESTAMP
+)
+BEGIN
+    UPDATE Exams
+    SET
+        examsdate = eexamsdate,
+        examsfrom = eexamsfrom,
+        examsto = eexamsto,
+        deadline = edeadline
+    WHERE examsid = eexamsid;
+END //
+DELIMITER ;
+
+########################DELETE###########################
+
+# Delete an account
+DELIMITER //
+CREATE PROCEDURE deleteAccount(IN aid INTEGER)
+BEGIN
+    DELETE FROM Accounts
+    WHERE id = aid;
+END //
+DELIMITER ;
+
+# Delete a semester
+DELIMITER //
+CREATE PROCEDURE deleteSemester(IN ssemesterid INTEGER)
+BEGIN
+    DELETE FROM Semester
+    WHERE semesterid = ssemesterid;
+END //
+DELIMITER ;
+
+# Delete a module
+DELIMITER //
+CREATE PROCEDURE deleteModule(IN mmodulesid INTEGER)
+BEGIN
+    DELETE FROM Modules
+    WHERE modulesid = mmodulesid;
+END //
+DELIMITER ;
+
+# Delete a session
+DELIMITER //
+CREATE PROCEDURE deleteSession(IN ssessionsid INTEGER)
+BEGIN
+    DELETE FROM Sessions
+    WHERE sessionsid = ssessionsid;
+END //
+DELIMITER ;
+
+# Delete an exam
+DELIMITER //
+CREATE PROCEDURE deleteExam(IN eexamsid INTEGER)
+BEGIN
+    DELETE FROM Exams
+    WHERE examsid = eexamsid;
+END //
+DELIMITER ;
+
+####################STUDENT##############################
+
+# 14 Procedures
+
+####################LIST AND VIEW #########################
+
+# List all the Students
+DELIMITER //
+CREATE PROCEDURE listStudent()
+BEGIN
+    SELECT A.id, A.firstname, A.lastname, S.studentid
+    FROM Student S JOIN Accounts A ON (S.studentid=A.id);
+END //
+DELIMITER ;
+
+# List all the students belong to a module
+DELIMITER //
+CREATE PROCEDURE listStudentByModuleId(IN moduleId INTEGER)
+BEGIN
+    SELECT S.studentid,A.firstname, A.lastname, M.modulesname
+    FROM  Accounts A JOIN Student S ON( A.id = S.studentid) JOIN Enrollment E ON ( S.studentid = E.studentid) JOIN Modules M ON (M.modulesid = E.modulesid)
+    WHERE M.modulesid = moduleId;
+END //
+DELIMITER ;
+
+#List all the attendances of a specific students.
+DELIMITER //
+CREATE PROCEDURE listStudentAttendance(IN studentId INTEGER) #TODO by student name
+BEGIN
+    SELECT *
+    FROM Attendance A
+    WHERE A.studentid = studentId;
+END //
+DELIMITER ;
+
+#List all the exams of all modules
+DELIMITER //
+CREATE PROCEDURE listAllExamWithModule()
+BEGIN
+    SELECT *
+    FROM Modules M JOIN Exams E ON (M.modulesid = E.modulesid);
+END //
+DELIMITER ;
+
+#List all the exams which overlap each other.
+DELIMITER //
+CREATE PROCEDURE listOverlapExams() #TODO recheck the result
+BEGIN
+    SELECT *
+    FROM Exams E1, Exams E2
+    WHERE E1.examsdate = E2.examsdate AND
+          (E1.examsfrom BETWEEN E2.examsfrom AND E2.examsto) OR
+        (E2.examsfrom BETWEEN E1.examsfrom AND E1.examsto) OR
+        (E1.examsfrom < E2.examsfrom AND E1.examsto > E2.examsto);
+END //
+DELIMITER ;
+
+#List sessions of given date
+DELIMITER //
+CREATE PROCEDURE listSessionByDate(IN sessionDate DATE)
+BEGIN
+    SELECT *
+    FROM Sessions S
+    WHERE S.sessionsdate = sessionDate;
+END //
+DELIMITER ;
+
+# List all the Exams by a given semester
+DELIMITER //
+CREATE PROCEDURE ListexamBySemester(IN semesterId INTEGER)
+BEGIN
+    SELECT S.semesterid, M.modulesname, E.examsdate, E.examsfrom, E.examsto, E.deadline
+    FROM Modules M JOIN Semester S ON (M.semesterid = S.semesterid) JOIN Exams E ON (M.modulesid=E.modulesid)
+    WHERE S.semesterid = semesterId;
+END //
+DELIMITER ;
+
+# List all the Exams by a given module
+DELIMITER //
+CREATE PROCEDURE listExamByModuleName(IN moduleName VARCHAR(20))
+BEGIN
+    SELECT M.modulesid, M.modulesname, E.examsdate, E.examsfrom, E.examsto, E.deadline
+    FROM Modules M JOIN Exams E ON (M.modulesid=E.modulesid)
+    WHERE M.modulesname = moduleName;
+END //
+DELIMITER ;
+
+# List all the exams of a given students which they have registered.
+DELIMITER //
+CREATE PROCEDURE listExamByStudent(IN studentId INTEGER)
+BEGIN
+    SELECT S.studentid, A.firstname, A.lastname, E.examsid
+    FROM Accounts A JOIN Student S ON ( A.id = S.studentid) JOIN Registration R ON ( S.studentid = R.studentid) JOIN Exams E ON ( R.examsid = E.examsid)
+    WHERE S.studentid = studentId;
+END //
+DELIMITER ;
+
+#List all the exam of a student
+DELIMITER //
+CREATE PROCEDURE listExamOfAStudent (IN id INT)
+BEGIN
+    SELECT *
+    FROM Exams E JOIN Registration R ON (E.examsid = R.examsid)
+                 JOIN Modules M ON (M.modulesid = E.modulesid)
+    WHERE R.studentid = id;
+END //
+DELIMITER ;
+
+# Student view his/her registered exams
+DELIMITER //
+CREATE PROCEDURE viewRegisteredExamsByStudent(IN studentId INTEGER) #TODO by student name
+BEGIN
+    SELECT M.modulesname, E.examsDate, E.examsFrom, E.examsTo
+    FROM   Registration R JOIN Exams E ON ( R.examsid = E.examsid) JOIN Modules M ON ( M.modulesid = E.modulesid)
+    WHERE R.studentid= studentId;
+END //
+DELIMITER ;
+
+#########################CREATE############################
+
+# Exam Registration
+DELIMITER //
+CREATE PROCEDURE examRegistration( IN studentId INTEGER,
+                                   IN examId	INTEGER)
+BEGIN
+    INSERT INTO Registration(studentid, examsid) VALUES( studentID, examId);
+END//
+
+# Module Enroll
+CREATE PROCEDURE moduleEnroll( IN studentId INTEGER, IN moduleId INTEGER)
+BEGIN
+    INSERT INTO enrollment VALUES( studentId, moduleId);
+END//
+
+# SignAttendance
+CREATE PROCEDURE signAttendance( IN studentId INTEGER,
+                                 IN sessionId INTEGER	)
+BEGIN
+    INSERT INTO Attendance(studentid, sessionsid) VALUES (studentId, sessionId);
+END//
+DELIMITER ;
+
+
+####################LECTURER##############################
+
+# 2 Procedures
+
+####################LIST AND VIEW #########################
+
+# List all the Lecturers
+DELIMITER //
+CREATE PROCEDURE listLecturer()
+BEGIN
+    SELECT A.id, A.firstname, A.lastname, L.lecturerid
+    FROM Lecturer L JOIN Accounts A ON (L.lecturerid=A.id);
+END //
+DELIMITER ;
+
+#List exam participants
+DELIMITER //
+CREATE PROCEDURE listParticipantByExam(IN examId INTEGER) #TODO check to make sure
+BEGIN
+    SELECT A.firstname, A.lastname, S.studentid
+    FROM Accounts A JOIN Student S ON( A.id = S.studentid) JOIN Registration R ON (S.studentid = R.studentid ) JOIN Exams E ON ( E.examsid = R.examsid)
+    WHERE E.examsid= examId;
+END //
+DELIMITER ;
+
+#########################NEW###############################
+#11 Methods
+
+
+
+
+
+#List student by first name and last name
+DELIMITER //
+CREATE PROCEDURE listStudentByName(IN erstename VARCHAR(20),
+                                   IN familienname VARCHAR(20))
+BEGIN
+    SELECT S.studentid as "studentid", A.firstname as "firstname",
+           A.lastname as "lastname"
+    FROM Accounts A JOIN Student S ON A.id = S.studentid
+    WHERE A.firstname = erstename and A.lastname = familienname;
+END //
+DELIMITER ;
+
+
+#List session by module name
+DELIMITER //
+CREATE PROCEDURE listSessionByModuleId(IN moduleId INT)
+BEGIN
+    SELECT Se.modulesid as "modulesid", Se.sessionsdate as "sessionsdate",
+           Se.sessionsfrom as "sessionsfrom", Se.sessionsto as "sessionsto",
+           M.modulesname as "modulesname", Se.sessionsid as "sessionsid"
+    FROM Sessions Se JOIN Modules M ON M.modulesid = Se.modulesid
+    WHERE M.modulesid = moduleId;
+END //
+DELIMITER ;
+
+#List registration by examsid
+DELIMITER //
+CREATE PROCEDURE listRegistrationByExam(IN examId INT)
+BEGIN
+    SELECT R.studentid as "studentid", A.firstname as "firstname",
+           A.lastname as "lastname", R.examsid as "examsid"
+    FROM Registration R JOIN Accounts A ON R.studentid = A.id
+    WHERE R.examsid = examId;
+END //
+DELIMITER ;
+
+#List attendance by sessionsid
+DELIMITER //
+CREATE PROCEDURE listAttendanceBySession(IN sessionId INT)
+BEGIN
+    SELECT Att.studentid as "studentid", A.firstname as "firstname",
+           A.lastname as "lastname", Att.sessionsid as "sessionsid"
+    FROM Attendance Att JOIN Accounts A ON Att.studentid = A.id
+    WHERE Att.sessionsid = sessionId;
+END //
+DELIMITER ;
+
+#List enrollment by moduleid
+DELIMITER //
+CREATE PROCEDURE listEnrollmentByModuleId(IN moduleId INT)
+BEGIN
+    SELECT E.studentid as "studentid", A.firstname as "firstname",
+           A.lastname as "lastname", E.modulesid as "modulesid"
+    FROM Enrollment E JOIN Accounts A ON E.studentid = A.id
+    WHERE E.modulesid = moduleId;
+END //
+DELIMITER ;
+
+#List session overlaps
+DELIMITER //
+CREATE PROCEDURE listSessionsOverlap()
+BEGIN
+    SELECT S1.sessionsid as "sessionsid1", S1.sessionsfrom as "sessionsfrom1",
+           S1.sessionsto as "sessionsto1", S1.sessionsdate as "sessionsdate1",
+           S2.sessionsid as "sessionsid2", S2.sessionsfrom as "sessionsfrom2",
+           S2.sessionsto as "sessionsto2", S2.sessionsdate as "sessionsdate2"
+    FROM Sessions S1, Sessions S2
+    WHERE S1.sessionsid < S2.sessionsid AND
+          (S1.sessionsdate = S2.sessionsdate) AND
+          (S1.sessionsfrom BETWEEN S2.sessionsfrom AND S2.sessionsto) OR
+        (S1.sessionsfrom < S2.sessionsfrom AND S1.sessionsto > S2.sessionsto);
+END //
+DELIMITER ;
+
+# List all the Exams by a given module
+DELIMITER //
+CREATE PROCEDURE listExamByModuleId(IN moduleId INT)
+BEGIN
+    SELECT M.modulesid, M.modulesname, E.examsdate, E.examsfrom, E.examsto, E.deadline, E.examsid
+    FROM Modules M JOIN Exams E ON (M.modulesid=E.modulesid)
+    WHERE M.modulesid = moduleId;
+END //
+DELIMITER ;
+
+# List all the Registered Exams by a student Id
+DELIMITER //
+CREATE PROCEDURE listRegisteredExamByStudentId(IN studentId INT)
+BEGIN
+    SELECT M.modulesid, M.modulesname, E.examsdate, E.examsfrom, E.examsto, E.deadline, E.examsid
+    FROM Exams E JOIN Modules M ON (M.modulesid=E.modulesid)
+                 JOIN Registration R ON E.examsid = R.examsid
+    WHERE R.studentid = studentId;
+END //
+DELIMITER ;
+
+# List all the Signed Attendance by a student Id
+DELIMITER //
+CREATE PROCEDURE listSignedAttendanceByStudentId(IN studentId INT)
+BEGIN
+    SELECT M.modulesid, M.modulesname, Se.sessionsdate, Se.sessionsfrom, Se.sessionsto,
+           Se.sessionsid
+    FROM Sessions Se JOIN Modules M ON (M.modulesid=Se.modulesid)
+                     JOIN Attendance Att ON Se.sessionsid = Att.sessionsid
+    WHERE Att.studentid = studentId;
+END //
+DELIMITER ;
+
+
+# Delete Registration
+DELIMITER //
+CREATE PROCEDURE deleteRegistration(IN Rexamsid INT,
+                                    IN RstudentId INT)
+BEGIN
+    DELETE FROM Registration
+    WHERE examsid = Rexamsid and studentid = RstudentId;
+END //
+DELIMITER ;
+
+# Delete Attendance
+DELIMITER //
+CREATE PROCEDURE deleteAttendance(IN Asessionsid INT,
+                                  IN AstudentId INT)
+BEGIN
+    DELETE FROM Attendance
+    WHERE sessionsid = Asessionsid and studentid = AstudentId;
+END //
+DELIMITER ;
+
+######################ASSISTANT CREATE ACCOUNT##############################
+
+#5 Methods
+
+#Create Account
+DELIMITER //
+CREATE PROCEDURE createAccount(
+    IN login	VARCHAR(20),
+    IN pass	VARCHAR(20),
+    IN firstname	VARCHAR(20),
+    IN lastname	VARCHAR(20))
+BEGIN
+    INSERT INTO Accounts(login,pass,firstname,lastname) VALUES (login, pass, firstname, lastname);
+END //
+DELIMITER ;
+
+#Create Student
+DELIMITER //
+CREATE PROCEDURE createStudent(IN studentid	INTEGER)
+BEGIN
+    INSERT INTO Student VALUES (studentid);
+END //
+DELIMITER ;
+
+#Create Lecturer
+DELIMITER //
+CREATE PROCEDURE createLecturer(IN lecturerid	INTEGER)
+BEGIN
+    INSERT INTO Lecturer VALUES (lecturerid);
+END //
+DELIMITER ;
+
+#Create Module
+DELIMITER //
+CREATE PROCEDURE createModule(IN mmodulesname	VARCHAR(20),
+                              IN ssemesterid INTEGER)
+BEGIN
+    INSERT INTO Modules(modulesname, semesterid) VALUES  (mmodulesname, ssemesterid);
+END //
+DELIMITER ;
+
+#List Id by Login
+DELIMITER //
+CREATE PROCEDURE listIdByLogin(IN llogin	VARCHAR(20))
+BEGIN
+    SELECT id
+    FROM Accounts
+    WHERE login = llogin;
+END //
+DELIMITER ;
+
+#############################NEW ASSISTANT##########################
+DELIMITER //
+
+CREATE PROCEDURE listModule()
+
+BEGIN
+
+    SELECT M.modulesid as "modulesid", M.modulesname as "modulesname", M.semesterid as"semesterid"
+
+    FROM Modules M;
+
+END //
+
+CREATE PROCEDURE listSemesterId()
+
+BEGIN
+
+    SELECT Se.semesterid as "semesterid", Se.semesterfrom as "semesterfrom"
+         , Se.semesterto as "semesterto"
+
+    FROM Semester Se;
+
+END //
+
+CREATE PROCEDURE modifyModule(
+
+    IN	mmodulesid	INTEGER,
+
+    IN	mmodulesname	VARCHAR(20),
+
+    IN	ssemesterid	INTEGER
+)
+
+BEGIN
+
+    UPDATE Modules
+
+    SET
+        modulesname = mmodulesname,
+
+        semesterid = ssemesterid
+
+    WHERE modulesid = mmodulesid;
+
+END //
+
+CREATE PROCEDURE modifySession(
+
+    IN	ssessionsid	INTEGER,
+
+    IN	mmodulesid	INTEGER,
+
+    IN	ssessionsdate	DATE,
+
+    IN	ssessionsfrom	TIME,
+
+    IN	ssessionsto	TIME
+)
+
+BEGIN
+
+    UPDATE Sessions
+
+    SET
+        modulesid = mmodulesid,
+
+        sessionsdate = ssessionsdate,
+
+        sessionsfrom = ssessionsfrom,
+
+        sessionsto = ssessionsto
+
+    WHERE sessionsid = ssessionsid;
+END //
+
+DELIMITER ;
+
+
+# List Student attendance count by module id
+DELIMITER //
+CREATE PROCEDURE listStudentAttendanceCountByModuleId(IN moduleId INT)
+BEGIN
+    SELECT Att.studentid, COUNT(DISTINCT Att.sessionsid) AS 'attendance_count'
+    FROM Attendance Att
+             JOIN Sessions SE ON SE.sessionsid = Att.sessionsid
+             JOIN Modules M on SE.modulesid = M.modulesid
+             JOIN Registration R ON R.studentid = Att.studentid
+    WHERE M.modulesid=1
+    group by Att.studentid;
+END //
+DELIMITER ;
+
+
+# Count session by module
+DELIMITER //
+CREATE PROCEDURE listSessionCountByModuleId(IN moduleId INT)
+BEGIN
+    SELECT M.modulesid, COUNT(S.sessionsid) AS 'session_count'
+    FROM Sessions S JOIN Modules M ON(S.modulesid=M.modulesid)
+    where M.modulesid = moduleId
+    group by M.modulesid;
+END //
+DELIMITER ;
+
+SELECT Att.studentid, COUNT(DISTINCT Att.sessionsid) AS 'attendance_count'
+FROM Attendance Att
+         JOIN Sessions SE ON SE.sessionsid = Att.sessionsid
+         JOIN Modules M on SE.modulesid = M.modulesid
+         JOIN Registration R ON R.studentid = Att.studentid
+WHERE M.modulesid=1
+group by Att.studentid;
+
+SELECT M.modulesid, COUNT(S.sessionsid) AS 'session_count'
+FROM Sessions S JOIN Modules M ON(S.modulesid=M.modulesid)
+where M.modulesid = 1
+group by M.modulesid;

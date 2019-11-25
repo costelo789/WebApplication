@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.theTable{			
+	width: 100%;
+}
+
+
+.theTopLeft {
+	width: 20%;
+	height: 30%;
+}
+
+
+.theBanner {
+	height: 20%;
+}
+
+
+.theAccountBar td{
+	width: 30%;
+}
+
+
+.theOptionPanel td{
+	text-align:center;
+}
+
+</style>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+<script src="GET.js">
+</script>
+<script src="POST.js">
+</script>
+</head>
+ <body>
+   <table class = "theTable" border="1"> 
+     
+     <tr>
+       <th class="theTopLeft"  ></th>
+       <th class="theBanner" colspan="3" >Banner</th> 
+     </tr>
+      <tr class="theAccountBar">
+        <td style="text-align:center; width:20%"><a href="Student_HomePage.html">Home</a></td>
+        <td>Name</td>
+         <td>Change Password</td>
+         <td>Log out</td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+        <td ></td>
+       <td rowspan="5" colspan="3">
+       <div class="container">
+			   <p><b>List Registered Exams</b></p>
+			  <table id="listRegisteredExamByStudentId">		
+			  	<thead>
+					<th>Exam Id</th>
+					<th>Module name</th>
+					<th>Exam Date</th>
+					<th>Exam from</th>
+					<th>Exam to</th>
+					<th>Deadline</th>
+				</thead>
+			  </table>
+ 				 
+			  <p><b>Unregister exams. Enter exam id:</b></p>
+			  <ul id=deleteRegistration></ul>
+			 <input id="examsId" type="text" name="examsId"  value="1">
+  			<input id="deleteRegistrationButton" type="submit" value="Submit">			  
+			  
+	   </div> 
+       </td>
+     </tr>
+     
+    
+     
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     
+     
+   
+    
+     
+   
+     
+     
+    
+     
+    
+     
+     
+     
+     
+  </body>
+</html>

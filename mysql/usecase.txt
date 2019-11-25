@@ -1,0 +1,135 @@
+Assistants:
+
+List all the sessions which overlap each other.
+
+Select *
+From 	Sessions s1, Sessions s2
+Where 	s1.mcode != s2.mcode  and
+		s1.sfrom != s2.sfrom  and
+		s1.sto 	 != s2.sto    and
+        s1.sdate =  s2.sdate;
+		
+List all the exams which overlap each other.
+List all the exams of a given students which they have registered.
+List all the sessions belong to a given module. ok
+List all the attendances of a specific students.
+List all the exams of the modules a student have enrolled.
+List all the exams of a module.
+List all the exams of all modules.
+List all the exams of all but a module.
+List all the exams of a student from all module.
+List all the exams of a module in 2018.
+List all the exams of a module in a semester.
+List all the exams of a module of a lecturer.
+List all the attendances of a session.
+select *
+from Student S
+join Attendance A on S.studentid = A.studentid
+join Sessions Se on Se.sessionsid = A.sessionid
+where Se.sessionid = 123;
+
+List all the attendances of a module from all sessions.
+select *
+from Student S
+join Attendance A on S.studentid = A.studentid
+join Sessions Se on Se.sessionsid = A.sessionid
+join Modules M on M.code = Se.mcode
+where M.code = 123; 
+
+List all the attendances of all sessions in date.
+select *
+from Student S
+join Attendance A on S.studentid = A.studentid
+join Sessions Se on Se.sessionsid = A.sessionid
+where Se.date = '2018/12/01';
+
+List all the attendances of a specific students all sessions.
+select *
+from Sessions Se
+join Attendance A on Se.sessionsid = A.sessionid
+join Student S on S.studentid = A.studentid
+where S.studentid = 123; 
+
+List all the enrollment of a module in a semester.
+select *
+from Student S
+join Enrollment E on S.studentid = E.Enroll_studentid
+join Modules M on E.Mcode = M.code
+where M.code = 123;
+
+List all the enrollment of all module of lecturer.
+select *
+from Student S
+join Enrollment E on S.studentid = E.Enroll_studentid
+join Modules M on E.Mcode = M.code
+join Teaching T on T.mcode = M.mcode
+join Lecturer L on L.lecturerid = T.lecturerid
+where L.lecturerid = 123;
+
+List all the enrollment of a semester from all modules.
+select *
+from Student S
+join Enrollment E on S.studentid = E.Enroll_studentid
+where S.studentin in (select studentid from Enrollment);
+
+List all students of a module in a semester
+select *
+from Student S
+join Enrollment E on S.studentid = E.Enroll_studentid
+join Modules M on E.Mcode = M.code
+where M.sid = 123;
+
+List all students of a semester
+select *
+from Student S
+join Enrollment E on E.Enroll_studentid = S.studentid
+join Modules M on M.code = E.Mcode
+where M.sid = 123;
+
+List all students of a lecturer from all modules.
+select *
+from Student S
+join Enrollment E on E.Enroll_studentid = S.studentid
+join Modules M on M.code = E.Mcode
+join Teaching T on T.mcode = M.code
+join Lecturer L on L.lecturerid = T.lecturerid
+where L.lecturerid = 123;
+
+List all students
+select * 
+from Student S;
+
+List all the lecturer of a module in a semester.
+select * 
+from Lecturer L
+join Teaching T on T.lecturerid = L.lecturerid
+
+List all lecturers
+
+
+From the table:
+INSERT/UPDATE
+register a student to a given exam.
+INSERT INTO Registration VALUES ('12321', '12', '2019-01-19 03:15:09');
+
+sign a student to a given session.
+INSERT INTO Attendance VALUES ('12321', 'ABC', '2019-01-10 03:15:09');
+
+add a session to a given module.
+INSERT INTO Sessions VALUES ('ABC', 'MA19', 'WS19', '2019-01-10', '02:30:00', '04:15:00');
+
+add a module
+INSERT INTO Modules VALUES ('MA19', 'Mathematics', 'WS19');
+
+add a student
+INSERT INTO Account VALUES ('Abc', 'Abc', 'A', 'B');
+INSERT INTO Student VALUES ('12321', 'Abc');
+
+READ:
+list all modules that have sessions that overlap with each other
+select *
+from Sessions Se
+cross join Sessions Se2
+where Se.ses_from = Se2.ses_from
+and Se.ses_to = Se2.ses_to;
+

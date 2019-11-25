@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.theTable{			
+	width: 100%;
+}
+
+
+.theTopLeft {
+	width: 20%;
+	height: 30%;
+}
+
+
+.theBanner {
+	height: 20%;
+}
+
+
+.theAccountBar td{
+	width: 30%;
+}
+
+
+.theOptionPanel td{
+	text-align:center;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+}
+
+#listModule {
+	position: relative;
+	left: 30%;
+}
+</style>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+<script src="../Util_Scripts_GET.js">
+</script>
+<script src="Lecturer_Scripts_GET.js">
+</script>
+
+</head>
+ <body>
+   <table class = "theTable" border="1"> 
+     
+     <tr>
+       <th class="theTopLeft"  ></th>
+       <th class="theBanner" colspan="3" >Banner</th> 
+     </tr>
+      <tr class="theAccountBar">
+        <td style="text-align:center; width:20%">Home</td>
+        <td>Name</td>
+         <td>Change Password</td>
+         <td>Log out</td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+        <td >Create</td>
+       <td rowspan="3" colspan="3">
+       
+       	 <div class="container">
+			   <p><b>List Enrolled Students</b></p>
+			  <table id="listEnrollmentByModuleId">		
+			  	<thead>
+					<th>Module ID</th>
+					<th>Module Name</th>
+				</thead>
+			  </table>
+			  
+	   </div> 
+       
+       </td>
+     </tr>
+     
+   
+    
+     
+   
+     </table>
+     
+    
+     
+    
+     
+     
+     
+     
+  </body>
+</html>

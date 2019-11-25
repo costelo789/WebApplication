@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+
+</style>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+<script src="Student_Scripts.js">
+</script>
+</head>
+
+<body>
+
+
+<h2>HTML Forms</h2>
+
+<div class="container">
+  <table id="students">
+  	<thead>
+		<th>ID</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+	</thead>
+  </table>
+  
+  <input id="showbutton" type="button" value="Submit">
+</div>
+
+
+
+<p>If you click the "Submit" button, the form-data will be sent to a page called "http://localhost:8080/webrest/rest/student/listStudentByModuleId".</p>
+
+<div class="container">
+  <table id="studentModule">
+  	<thead>
+		<th>ID</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+	</thead>
+  </table>
+  
+
+  <p><b>List Student By Modules</b></p>
+  Module Id:<br>
+  <input id="moduleId" type="text" name="moduleId"  value="1">
+  <input id="inputbutton" type="submit" value="Submit">
+
+</div>
+
+<div class="container">
+  <ul id=examRegister>
+  </ul>
+
+  <p><b>Exam Registration</b></p>
+  Student Id: <input id="studentId" type="text" name="studentId"  value="1"><br>
+  Exam Id:    <input id="examId" type="text" name="examID"  value="1"><br>
+  <input id="postbutton" type="submit" value="Submit">
+  
+</div>
+</body>
+</html>
+ 	

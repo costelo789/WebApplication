@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+<script src="GET.js"></script>
+<script src="GET_Exam.js"></script>
+<script src="Assistant_Scripts_POST.js"></script>
+
+<style>
+
+.theTable{			
+	width: 100%;
+}
+
+.theTopLeft {
+	width: 20%;
+	height: 30%;
+}
+
+.theBanner {
+	height: 20%;
+}
+
+.theAccountBar td{
+	width: 30%;
+}
+
+.theOptionPanel td{
+	text-align:center;
+}
+</style>
+  </head>
+ 
+ <body>
+   <table class = "theTable" border="1"> 
+     
+     <tr>
+       <th class="theTopLeft" rowspan="2" ></th>
+       <th class="theBanner"  colspan="3" >
+       
+       
+       </th> 
+     </tr>
+     
+     <tr class="theAccountBar">
+        <td>Name</td>
+        <td>Change Password</td>
+        <td>Log out</td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+        <td></td>
+       	<td rowspan="9" colspan="3">
+       		<p><b>List Exam</b></p>
+			<div class="container">
+			<table id="listAllExamWithModule">        <!-- RESULT ID WILL BE THE NAME OF THE JAVA METHOD -->
+     		<thead>
+        		<th>Exam ID</th>
+        		<th>Module ID</th>
+		        <th>Exam Date</th>
+		        <th>Exam From</th>
+		        <th>Exam To</th>
+		        <th>Deadline</th>
+    		</thead>
+ 			</table>
+
+			</div>
+       		<div class="container">
+       		
+  <ul id=modifyExam></ul>
+
+  <p><b>Modify Exam</b></p>
+  Exam Id: 		<input id="examId"type="text"><br>
+  Day: 			<input id="day"   type="text"><br>
+  Month:   	 	<input id="month" type="text"><br>
+  Year: 		<input id="year"  type="text"><br>
+  Hours From:   <input id="hourFr"type="text"><br>
+  Min From:     <input id="minFr" type="text"><br>
+  Sec From:     <input id="secFr" type="text"><br>
+  
+  Hours To:		<input id="hourTo"type="text"><br>
+  Min To:  		<input id="minTo" type="text"><br>
+  Sec To:  		<input id="secTo" type="text"><br>  
+  
+  Deadline: Year-Month-Day Hour:min:Sec<br>
+  <input id="Tyear"  type="text">
+  <input id="Tmonth" type="text">
+  <input id="Tdate"	 type="text">
+  <br>
+  <input id="Thour" type="text">
+  <input id="Tmin"  type="text">
+  <input id="Tsec"  type="text">
+  <br>
+  <input id="modifyExamButton" type="submit" value="Modify Exam">
+  
+</div>
+       	</td>
+     </tr>
+          
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+          
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     
+  </body>
+</html>

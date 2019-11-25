@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.theTable{			
+	width: 100%;
+}
+
+
+.theTopLeft {
+	width: 20%;
+	height: 30%;
+}
+
+
+.theBanner {
+	height: 20%;
+}
+
+
+.theAccountBar td{
+	width: 30%;
+}
+
+
+.theOptionPanel td{
+	text-align:center;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+}
+
+#listModule {
+	position: relative;
+	left: 30%;
+}
+</style>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+<script src="../Util_Scripts_GET.js">
+</script>
+<script src="Lecturer_Scripts_GET.js">
+</script>
+<script src="Assistant_Scripts_POST.js">
+</script>
+</head>
+ <body>
+   <table class = "theTable" border="1"> 
+     
+     <tr>
+       <th class="theTopLeft"  ></th>
+       <th class="theBanner" colspan="3" >Banner</th> 
+     </tr>
+      <tr class="theAccountBar">
+        <td style="text-align:center; width:20%"><a href="Lecturer_Homepage.html">Home</a></td>
+        <td>Name</td>
+         <td>Change Password</td>
+         <td>Log out</td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+        <td ></td>
+       <td rowspan="3" colspan="3">
+       
+       	 <div class="container">
+			   <p><b>List Module</b></p>
+			  <table id="listModule">		
+			  	<thead>
+					<th>Module ID</th>
+					<th>Module Name</th>
+				</thead>
+			  </table>
+			  <p><b>Choose module. Enter module id:</b></p>
+			  <input id="moduleId" type="text" name="moduleId">
+			  <input id="listExamByModuleIdButton" type="button" value="Submit">
+       		   <p><b>List Exam</b></p>
+			  <table id="listExamByModuleId">		
+			  	<thead>
+					<th>ID</th>
+					<th>Date</th>
+					<th>From</th>
+					<th>To</th>
+					<th>Module Name</th>
+				</thead>
+			  </table>
+			  <p><b>Choose exam. Enter exam id:</b></p>
+			  <input id="examId" type="text" name="examId">
+			  <input id="listRegistrationByExamButton" type="button" value="Submit">
+			  <p><b>List Student Registration</b></p>
+			  <table id="listRegistrationByExam">		
+			  	<thead>
+					<th>ID</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+				</thead>
+			  </table>
+		</div>
+       </td>
+     </tr>
+     
+   
+    
+     
+   
+     </table>
+     
+    
+     
+    
+     
+     
+     
+     
+  </body>
+</html>

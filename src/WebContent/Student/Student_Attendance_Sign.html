@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.theTable{			
+	width: 100%;
+}
+
+
+.theTopLeft {
+	width: 20%;
+	height: 30%;
+}
+
+
+.theBanner {
+	height: 20%;
+}
+
+
+.theAccountBar td{
+	width: 30%;
+}
+
+
+.theOptionPanel td{
+	text-align:center;
+}
+
+</style>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+<script src="GET.js">
+</script>
+<script src="POST.js">
+</script>
+</head>
+ <body>
+   <table class = "theTable" border="1"> 
+     
+     <tr>
+       <th class="theTopLeft"  ></th>
+       <th class="theBanner" colspan="3" >Banner</th> 
+     </tr>
+      <tr class="theAccountBar">
+        <td style="text-align:center; width:20%"><a href="Student_HomePage.html">Home</a></td>
+        <td>Name</td>
+         <td>Change Password</td>
+         <td>Log out</td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+        <td ></td>
+       <td rowspan="5" colspan="3">
+       <div class="container">
+			   <p><b>List Module</b></p>
+			  <table id="listModule">		
+			  	<thead>
+					<th>Module ID</th>
+					<th>Module Name</th>
+				</thead>
+			  </table>
+ 				 
+			  <p><b>Available sessions. Enter session id:</b></p>
+			 <input id="moduleId" type="text" name="moduleId"  value="1">
+  			<input id="listSessionByModuleIdButton" type="submit" value="Submit">
+			  <table id="listSessionByModuleId">		
+			  	<thead>
+					<th>Session Id</th>
+					<th>Module Id</th>
+					<th>Session Date</th>
+					<th>Session from</th>
+					<th>Session to</th>
+				</thead>
+			  </table>
+			  
+			 <h3>Signing Attendance</h3>
+	<ul id=signAttendance></ul>
+	<div class="container"> 
+		<p><b>Sign Attandance</b></p>
+ 		Student Id:<input id=studentId 	type="text"> <br>
+ 		Session Id:<input id=sessionId 	type="text"> <br>
+  		<input id="signAttendanceButton"type="submit" value="Submit">
+	   </div> 
+       </td>
+    	 </tr>
+     
+    
+     
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     
+     
+   
+    
+     
+   
+     
+     
+    
+     
+    
+     
+     
+     
+     
+  </body>
+</html>

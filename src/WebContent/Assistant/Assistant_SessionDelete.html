@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+<script src="GET.js"></script>
+<script src="GET_Exam.js"></script>
+<script src="Assistant_Scripts_POST.js"></script>
+
+<style>
+
+.theTable{			
+	width: 100%;
+}
+
+.theTopLeft {
+	width: 20%;
+	height: 30%;
+}
+
+.theBanner {
+	height: 20%;
+}
+
+.theAccountBar td{
+	width: 30%;
+}
+
+.theOptionPanel td{
+	text-align:center;
+}
+</style>
+  </head>
+ 
+ <body>
+   <table class = "theTable" border="1"> 
+     
+     <tr>
+       <th class="theTopLeft" rowspan="2" ></th>
+       <th class="theBanner"  colspan="3" >
+       
+       
+       </th> 
+     </tr>
+     
+     <tr class="theAccountBar">
+        <td>Name</td>
+        <td>Change Password</td>
+        <td>Log out</td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+        <td></td>
+       	<td rowspan="9" colspan="3">
+       	<p><b>List Module</b></p>
+			  <table id="listModule">		
+			  	<thead>
+					<th>Module ID</th>
+					<th>Module Name</th>
+				</thead>
+			  </table>
+ 				 
+			  <p><b>Available Sessions</b></p>
+			 <input id="moduleId" type="text" name="moduleId"  value="1">
+  			<input id="listSessionByModuleIdButton" type="submit" value="Submit">
+			  <table id="listSessionByModuleId">		
+			  	<thead>
+					<th>Session Id</th>
+					<th>Module Id</th>
+					<th>Session Date</th>
+					<th>Session from</th>
+					<th>Session to</th>
+				</thead>
+			  </table>
+       		<div class="container">
+  				<ul id=deleteSession></ul>
+				<p><b>Delete Session</b></p>
+  				Exam ID: <input id="sessionsid" type="text"  value="1"><br>
+  				<input id="deleteSessionButton" type="submit" value="Submit">
+  
+			</div>
+       	</td>
+     </tr>
+          
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+          
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+     
+  </body>
+</html>

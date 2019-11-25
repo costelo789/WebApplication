@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>HTML Forms</h1>
+
+<form action="http://localhost:8080/webrest/rest/student/listStudent" method="get">
+  <p><b>List Student</b></p>
+  <input type="submit" value="Show">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/listStudentByModuleId" method="get">
+  <p><b>List Student By Modules</b></p>
+  Module Id:<br>
+  <input type="text" name="moduleId"  value="1">
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/listStudentAttendance" method="get">
+  <p><b>List Student Attendance</b></p>
+  Module Id:<br>
+  <input type="text" name="studentId"  value="1">
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/listAllExamWithModule" method="get">
+  <p><b>List Exam by ModuleId</b></p>
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/listOverlapExams" method="get">
+  <p><b>List Overlap Exam</b></p>
+  <input type="submit" value="Show">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/listSessionByDate" method="get">
+  <p><b>List Session By Date</b></p>
+  Date(YYYY-MM-DD):<br>
+  <input type="text" name="date"  value="2018-01-01">
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/listExamBySemester" method="get">
+  <p><b>List Exam by Semester</b></p>
+  Semester Id:<br>
+  <input type="text" name="semesterId"  value="2018/">
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/listExamByModuleName" method="get">
+  <p><b>List Exam by Module Name</b></p>
+  Module Name:<br>
+  <input type="text" name="moduleName"  value="2018/">
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/listExamByStudent" method="get">
+  <p><b>List Exam By StudentId</b></p>
+  Student Id:<br>
+  <input type="text" name="studentId"  value="1">
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/listExamOfAStudent" method="get">
+  <p><b>List Exam By StudentId</b></p>
+  Student Id:<br>
+  <input type="text" name="studentId" value="1">
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/viewRegisteredExamsByStudent" method="get">
+  <p><b>List Student Registered Exam</b></p>
+  Student Id:<br>
+  <input type="text" name="studentID"  value="1">
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/examRegistration" method="post">
+  <p><b>Exam Registration</b></p>
+  Student Id: <input type="text" name="studentId"  value="1"><br>
+  Exam Id:    <input type="text" name="examID"  value="1"><br>
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/moduleEnroll" method="post">
+  <p><b>Module Enroll</b></p>
+  Student Id:<input type="text" name="studentId"  value="1"><br>
+  Module Id: <input type="text" name="moduleID"   value="1"><br>
+  <input type="submit" value="Submit">
+</form>
+
+<form action="http://localhost:8080/webrest/rest/student/signAttendance" method="post">
+  <p><b>Signing Attendance</b></p>
+  Student Id:<input type="text" name="studentId"  value="1"><br>
+  Session Id:<input type="text" name="sessionId"  value="1"><br>
+  
+  <input type="submit" value="Submit">
+</form>
+
+<p>If you click the "Submit" button, the form-data will be sent to a page called "http://localhost:8080/webrest/rest/student/listStudentByModuleId".</p>
+
+</body>
+</html>
+ 	

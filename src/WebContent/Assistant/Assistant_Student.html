@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+
+<script src="GET_Student.js"></script>
+
+<style>
+
+.theTable{			
+	width: 100%;
+}
+
+.theTopLeft {
+	width: 20%;
+	height: 30%;
+}
+
+.theBanner {
+	height: 20%;
+}
+
+.theAccountBar td{
+	width: 30%;
+}
+
+.theOptionPanel td{
+	text-align:center;
+}
+</style>
+  </head>
+ 
+ <body>
+   <table class = "theTable" border="1"> 
+     
+     <tr>
+       <th class="theTopLeft" rowspan="2" ></th>
+       <th class="theBanner"  colspan="3" >
+       
+       
+       </th> 
+     </tr>
+     
+     <tr class="theAccountBar">
+        <td>Name</td>
+        <td>Change Password</td>
+        <td>Log out</td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+        <td><a href="Assistant_Homepage.html">Home</a></td>
+       	<td rowspan="9" colspan="3">
+       		<div class="container">
+       		<p><b>List Student</b>
+			<table id="listStudent">
+     		<thead>
+        		<th>ID</th>
+        		<th>First Name</th>
+		        <th>Last Name</th>
+		        <th>Student ID</th>
+    		</thead></p>
+ 			</table>
+
+			</div>
+       	</td>
+     </tr>
+     <tr class="theOptionPanel">
+       <td><a href="Assistant_CreateStudentAccount.html">Create Student Account</a></td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+       <td><a href="Assistant_ModifyStudentAccount.html">Modify Student Account</a></td>
+     </tr>
+          
+     <tr class="theOptionPanel">
+       <td><a href="Assistant_DeleteStudentAccount.html">Delete Student Account</a></td>
+     </tr>
+     
+     <tr class="theOptionPanel">
+       <td></td>
+     </tr>
+     
+  </body>
+</html>
